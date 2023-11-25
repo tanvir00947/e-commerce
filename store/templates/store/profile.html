@@ -1,0 +1,51 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+{% if request.user == user %}
+<h3>Username: {{user.username}} <a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'update-user' request.user.id %}">Edit Profile</a></h3>
+{% if orders %}
+    <p>Orders  by you</p>
+    {% for order in orders %}
+    {% if request.user == order.customer.user%}
+        <a href="{% url 'order_details' order.id %}">
+        <div class="box-element">
+            <small>Order ID: {{order.id}} </small>
+            <p>{{order.customer.name}}</p>
+            <small>Date:{{ order.date_ordered }}</small>
+            
+            <h5>Items:   {{order.get_cart_items}}</h5>
+            <h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+            <small>Complete: {{ order.complete }}</small>
+        </div> 
+        </a> 
+        <hr>
+    {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No orders found for this user.</p>
+{% endif %}
+
+
+{% else %}
+
+<h3>Username: {{user.username}} </h3>
+
+{% endif %}
+
+<h5>Reviews by {{user.username}} </h5><hr>
+<ul>
+    {% for review in reviews %}
+    <li><a href="{% url 'product_description' review.product.id %}">
+        <strong>Reviewed: </strong> {{review.body}} <strong>on product: </strong> {{review.product.name}}
+        </a>
+            {% if request.user == review.customer.user %}
+                <a  style="float:right; margin:5px; background-color: red;" class="btn btn-success" href="{% url 'delete_review' review.id %}" >Delete</a>
+            {% endif %}
+    </li>
+    <hr>
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}

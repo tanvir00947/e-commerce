@@ -1,0 +1,142 @@
+
+
+
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+}
+
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-info h1 {
+    margin: 0;
+}
+
+.price {
+    font-size: 24px;
+    color: #f00;
+}
+
+.add-to-cart {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reviews {
+    margin-top: 30px;
+}
+
+.review-form {
+    margin-top: 20px;
+}
+
+.review-form textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.review-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.image-gallery {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+
+</style>
+
+
+<div class="container">
+    <div class="product-info">
+        <div class="product-details">
+            <h1>{{product.name}}</h1>
+            <p class="price">${{product.price}}</p>
+        </div>
+        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart add-to-cart">Add to Cart</button>
+        <!-- <button class="add-to-cart">Add to Cart</button> -->
+    </div>
+
+    <div class="image-gallery">
+        <img class="thumbnail" src="{{product.imageURL}}">
+        
+        {% for image in product_images %}
+        <img class="thumbnail" src="{{image.imageURL}}">
+        
+        {% endfor %}
+    </div>
+
+    <div class="description">
+        <p>{{product.description}}</p>
+    </div>
+
+
+    <div class="reviews">
+        <h2>Customer Reviews</h2>
+        <ul>
+            {% for review in product_reviews %}
+            <li>
+                <strong><a href="{% url 'user-profile' review.customer.user.id %}"> @{{review.customer.name}}:</a> {{review.body}}</strong> 
+                {% if request.user == review.customer.user %}
+                    <a  style="float:right; margin:5px; background-color: red;" class="btn btn-success" href="{% url 'delete_review' review.id %}" >Delete</a>
+                {% endif %}
+            </li>
+            <hr>
+            {% endfor %}
+        </ul>
+        {% if request.user.is_authenticated %}
+        <div class="review-form comment-form">
+            <h3>Write a Review</h3>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Write your review here..." />
+                <!-- <textarea placeholder="Your review"></textarea>
+                <br>
+                <input type="text" placeholder="Your name">
+                <br>
+                <button type="submit">Submit Review</button> -->
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+

@@ -1,0 +1,98 @@
+
+
+
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="col-lg-4">
+    <div style="display: flex;">
+        <img class="thumbnail" src="{{product.imageURL}}">
+        
+        {% for image in product_images %}
+        <img class="thumbnail" src="{{image.imageURL}}">
+        
+        {% endfor %}
+    </div>
+    <div class="box-element product">
+        <h6><strong>{{product.name}}</strong></h6>
+        <hr>
+
+        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+        
+        
+        <h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
+
+    </div>
+    
+</div>
+<div>
+    <p>{{product.description}}
+</div>
+
+<!-- Reviews -->
+
+<div>
+    <h3>Reviews</h3>
+    <hr>
+    {% for review in product_reviews %}
+        <div>
+            <!-- {% if request.user == message.user %}
+            <a href="{% url 'delete-message' message.id %}">Delete</a>
+            {% endif %} -->
+            <span>@{{review.customer.name}}   </span>
+            <small>{{review.created|timesince}} days ago</small>
+            <p> {{review.body}} </p>
+            <hr> 
+        </div> 
+    {% endfor %}
+</div>
+{% if request.user.is_authenticated %}
+<div class="comment-form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="body" placeholder="Write your review here..." />
+    </form>
+</div>
+{% endif %}
+
+<!-- review end -->
+
+
+{% endblock content %}
+
+
+<!-- profile backup  -->
+
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<h3>Username: {{request.user.username}} <a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'update-user' request.user.id %}">Edit Profile</a></h3>
+{% if orders %}
+    <p>Orders  by you</p>
+    {% for order in orders %}
+    {% if request.user == order.customer.user%}
+        <a href="{% url 'order_details' order.id %}">
+        <div class="box-element">
+            <p>{{order.customer.name}}</p>
+            <small>Date:{{ order.date_ordered }}</small>
+            
+            <h5>Items:   {{order.get_cart_items}}</h5>
+            <h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+            <small>Complete: {{ order.complete }}</small>
+        </div> 
+        </a> 
+        <hr>
+    {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No orders found for this user.</p>
+{% endif %}
+
+{% endblock content %}
+
+<!-- profile backup end -->

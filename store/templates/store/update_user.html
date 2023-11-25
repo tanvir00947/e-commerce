@@ -1,0 +1,13 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<h3>@{{request.user.username}} Edit Your Profile</h3>
+<form method="POST" action=""> 
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content %}

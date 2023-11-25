@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Description</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .product-info h1 {
+            margin: 0;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #f00;
+        }
+
+        .add-to-cart {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .reviews {
+            margin-top: 30px;
+        }
+
+        .review-form {
+            margin-top: 20px;
+        }
+
+        .review-form textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .review-form input {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="product-info">
+            <div class="product-details">
+                <h1>Product Name</h1>
+                <p class="price">$99.99</p>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="image-gallery">
+            <img src="image1.jpg" alt="Product Image 1" >
+            <img src="image2.jpg" alt="Product Image 2">
+            <img src="image3.jpg" alt="Product Image 3">
+        </div>
+
+        <div class="description">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
+        </div>
+
+        <div class="reviews">
+            <h2>Customer Reviews</h2>
+            <ul>
+                <li>
+                    <strong>John Doe:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.
+                </li>
+                <li>
+                    <strong>Jane Smith:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.
+                </li>
+            </ul>
+
+            <div class="review-form">
+                <h3>Write a Review</h3>
+                <form>
+                    <textarea placeholder="Your review"></textarea>
+                    <br>
+                    <input type="text" placeholder="Your name">
+                    <br>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
