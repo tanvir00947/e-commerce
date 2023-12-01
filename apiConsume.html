@@ -1,0 +1,41 @@
+
+<!-- this is not part of the project it is a seperate website which is using our api -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Fetch</title>
+</head>
+<body>
+    <h1> Cool Products </h1>
+    <div id="products-container"></div>
+</body>
+
+<script>
+
+    let productsContainer=document.getElementById('products-container')
+    let getProducts = async ()=>{
+        let response = await fetch('http://127.0.0.1:8000/api/products/')
+        let products=await response.json()
+        console.log('products:',products)
+
+        for(let i=0;i<products.length;i++){
+            let product=products[i]
+            let row=`<div>  
+                            <hr>
+                            <h3>${product.name}</h3>
+                            <h6>price: $ ${product.price}</h6>
+                            <h5>${product.description}</h5>
+                            <hr>
+                    </div>`
+            productsContainer.innerHTML +=row
+        }
+    }
+
+    getProducts()
+
+</script>
+
+</html>
