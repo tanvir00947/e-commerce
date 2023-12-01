@@ -7,7 +7,7 @@
 {% if orders %}
     <p>Orders  by you</p>
     {% for order in orders %}
-    {% if request.user == order.customer.user%}
+    {% if request.user == order.customer.user and order.complete %}
         <a href="{% url 'order_details' order.id %}">
         <div class="box-element">
             <small>Order ID: {{order.id}} </small>

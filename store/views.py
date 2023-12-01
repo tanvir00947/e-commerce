@@ -119,12 +119,33 @@ def cart(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/cart.html', context)
 
+@login_required(login_url='login')
 def checkout(request):
 	data = cartData(request)
 	
 	cartItems = data['cartItems']
 	order = data['order']
 	items = data['items']
+      
+	if cartItems < 1:
+		messages.error(request, 'Cart is empty!!! first add something to the cart') 
+		return redirect('store')
+    
+	print(request.method)
+	if request.method=='POST':
+		shippingAddress=ShippingAddress.objects.create(
+            customer=request.user.customer,
+            order=Order.objects.get(customer=request.user.customer,complete=False),
+            address=request.POST.get('address'),
+            city=request.POST.get('city'),
+            state=request.POST.get('state'),
+            zipcode=request.POST.get('zipcode')
+		)
+		order=Order.objects.get(customer=request.user.customer,complete=False)
+		order.complete=True
+		order.save()
+		print("address added")
+		return redirect('user-profile',request.user.customer.id)
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/checkout.html', context)
@@ -139,6 +160,8 @@ def updateItem(request):
 	customer = request.user.customer
 	product = Product.objects.get(id=productId)
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	order.transaction_id=str(10000000000000 + order.id)
+	order.save()
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
