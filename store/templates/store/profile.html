@@ -16,7 +16,8 @@
             
             <h5>Items:   {{order.get_cart_items}}</h5>
             <h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
-            <small>Complete: {{ order.complete }}</small>
+            <small>Complete: {{ order.complete }}</small><hr>
+            <small>Order Status: {{order.order_status}} </small>
         </div> 
         </a> 
         <hr>

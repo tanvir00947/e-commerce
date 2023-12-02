@@ -9,7 +9,8 @@
         <h3>Order Summary</h3>
         <hr>
         <p>{{order.customer.name}}</p>
-        <small>Order ID: {{order.id}} </small>
+        <small>Order ID: {{order.id}} </small><hr>
+        <small>Order Status: {{order.order_status}} </small>
         <hr>
         {% for item in orderItems %}
         <div class="cart-row">

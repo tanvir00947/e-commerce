@@ -36,6 +36,7 @@ class Order(models.Model):
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
+	order_status=models.CharField(max_length=200,null=True,default="Processing")
 
 	def __str__(self):
 		return str(self.id)+" "+self.customer.name+" "+str(self.transaction_id)

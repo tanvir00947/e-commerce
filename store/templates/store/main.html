@@ -93,7 +93,7 @@
 			
 	     	
 			 {% if request.user.is_authenticated %}
-			 <h4>hellow <a href="{% url 'user-profile' request.user.id %}" style="background-color: aliceblue; margin: 5px; padding: 2px;">@{{request.user.username}}</a></h4>
+			 <h4> Welcome <a href="{% url 'user-profile' request.user.id %}" style="background-color: aliceblue; margin: 5px; padding: 2px;">@{{request.user.username}}</a></h4>
 			 <a href="{% url 'logout' %}" class="btn btn-warning">Log Out</a>
 	     	 {% else %}
 			  <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
